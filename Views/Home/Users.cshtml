@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        @{
+            ViewData["Title"] = "Login or Register";
+        } @using ECommerce.Models;
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div class="mainbody">
+            <!-- Error header -->
+            <div>
+                @{
+                    foreach(var error in ViewBag.errors)
+                    {
+                        //If there are any errors for a field...
+                        if(@error.Errors.Count > 0)
+                        {
+                            // We show the first error for that field
+                            <p class="red align_center"><b>@error.Errors[0].ErrorMessage</b></p>
+                        }
+                    }
+                    if(@ViewBag.values[1] != ""){
+                        <p class="red align_center"><b>@ViewBag.values[1]</b></p>
+                    }
+                }
+            </div>
+            <div class="header_align">
+                <a class="sameline" href="/professional_profile">My Profile</a>
+                <a class="vert_line sameline"> </a>
+                <a class="sameline" href="/logout">Logout</a>
+            </div>
+            <h3>Users you may want to connect with: </h3>
+            <table class="spacerbig">
+                <tr>
+                <th>Name</th>
+                <th>Action</th>
+                </tr>
+                @{
+                    if(ViewBag.allusers != null){
+                        foreach(User U in ViewBag.allusers)
+                        {
+                        <tr>
+                        <td><a href="/Users/@U.UserId">@Html.Raw(U.Name.Replace(" ", "&nbsp;"))</a></td>
+                        <td><a href="/Users/@U.UserId/SendInvite">Connect</a></td>
+                        </tr>
+                        }
+                    } else {
+                        <tr>
+                        <td>There are no more users to add!</td>
+                        <td><a href="/Invite_People">Invite People</a></td>
+                        </tr>
+                    }
+                }
+            </table>
+
+
+
+
+        <!-- END OF MAIN -->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        @{
+            ViewData["Title"] = "Login or Register";
+        }
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div class="mainbody">
+            <h1>Welcome!</h1><br>
+
+            <div>
+                @{
+                    foreach(var error in ViewBag.errors)
+                    {
+                        //If there are any errors for a field...
+                        if(@error.Errors.Count > 0)
+                        {
+                            // We show the first error for that field
+                            <p class="red align_center"><b>@error.Errors[0].ErrorMessage</b></p>
+                        }
+                    }
+                    if(@ViewBag.values[1] != ""){
+                        <p class="red align_center"><b>@ViewBag.values[1]</b></p>
+                    }
+                }
+            </div>
+
+            <form action="/login" method="POST">
+                <h3>Login</h3>
+                <label for="EmailAddress">Email Address: </label>
+                <input type="text" name="EmailAddress" class="spacer2" maxlength="250" value=@ViewBag.values[2]><br>
+                <label for="Password">Password: </label>
+                <input type="password" name="Password" class="spacer2" maxlength="250" value=@ViewBag.values[3]><br><br>
+                <input class="alignbutton" type="submit" value="Login">
+            </form><br>
+
+            <form action="/register" method="POST">
+                <h3>Register</h3>
+                <label for="Name">Name: </label>
+                <input type="text" name="Name" class="spacer2" maxlength="100" value=@ViewBag.values[0]><br>
+                <label for="EmailAddress">Email Address: </label>
+                <input type="text" name="EmailAddress" class="spacer2" maxlength="250" value=@ViewBag.values[2]><br>
+                <label for="Password">Password: </label>
+                <input type="password" name="Password" class="spacer2" maxlength="250" value=@ViewBag.values[3]><br>
+                <label for="ConfirmPassword">Confirm Password: </label>
+                <input type="password" name="ConfirmPassword" class="spacer2" maxlength="250" value=@ViewBag.values[4]><br>
+                <label for="Description">Description: </label>
+                <textarea name="Description" maxlength="250">@ViewBag.values[5]</textarea><br><br>
+                <input class="alignbutton" type="submit" value="Register">
+            </form><br><br>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        @{
+            ViewData["Title"] = "Login or Register";
+        }
+        <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+    <body>
+        <div class="mainbody">
+            <!-- Error header -->
+            <div>
+                @{
+                    foreach(var error in ViewBag.errors)
+                    {
+                        //If there are any errors for a field...
+                        if(@error.Errors.Count > 0)
+                        {
+                            // We show the first error for that field
+                            <p class="red align_center"><b>@error.Errors[0].ErrorMessage</b></p>
+                        }
+                    }
+                    if(@ViewBag.values[1] != ""){
+                        <p class="red align_center"><b>@ViewBag.values[1]</b></p>
+                    }
+                }
+            </div>
+            <div class="header_align">
+                <a class="sameline" href="/professional_profile">My Profile</a>
+                <a class="vert_line sameline"> </a>
+                <a class="sameline" href="/logout">Logout</a>
+            </div>
+            <table class="spacerbig">
+            @{if(ViewBag.thisuser != null){
+                <h3>@ViewBag.thisuser.Name</h3>
+                <h5>Description: @ViewBag.thisuser.Description</h5>
+            } else {
+                <h3>This user does not exist.</h3>
+                <h5>Did you type in an incorrect link? Sorry!</h5>
+            }
+            }
+            </table>
+
+
+
+
+        <!-- END OF MAIN -->
+        </div>
+    </body>
+</html>
